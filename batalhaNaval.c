@@ -40,21 +40,25 @@ int main() {
     int tabuleiro [10][10]; //Declaração do tabuleiro 10x10
     int tamanhoNavio = 3, navio = 3;
 
-    // Inicializar tabuleiro com 0 - água
+    // Inicializar tabuleiro com valorv 0, representando água
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             tabuleiro[i][j] = 0;
         }
     }
 
-    //Coordenadas iniciais dos navios
-    int linhaH = 2, colunaH = 3; //Navio horizontal começa na linha 2, coluna 3
-    int linhaV = 5, colunaV = 7; //Navio vertical começa na linha 5, coluna 7
+    //Coordenadas dos navios
+    int linhaH = 2, colunaH = 3; //Navio horizontal
+    int linhaV = 5, colunaV = 7; //Navio vertical
+    int linhaD1 = 0, colunaD1 = 0; // Navio diagonal 1
+    int linhaD2 = 0, colunaD2 = 9; // Navio diagonal 2
 
     //Posição navio horizontal
     if (colunaH + tamanhoNavio <= 10) { //Verifica se cabe no tabuleiro
         for (int i = 0; i < tamanhoNavio; i++) {
-            tabuleiro[linhaH][colunaH + i] = navio;
+            if (tabuleiro[linhaH][colunaH + i] == 0) { 
+                tabuleiro[linhaH][colunaH + i] = navio;
+            }
         }
     }
 
@@ -68,7 +72,25 @@ int main() {
         }
     }
 
-        printf("Tabuleiro Batalha Naval\n");
+    //Posição navio diagonal 1
+    if (linhaD1 + tamanhoNavio <= 10 && colunaD1 + tamanhoNavio <= 10) { 
+        for (int i = 0; i < tamanhoNavio; i++) { 
+            if (tabuleiro[linhaD1 + i][colunaD1 + i] == 0) { 
+                tabuleiro[linhaD1 + i][colunaD1 + i] = navio; 
+            } 
+        } 
+    }
+
+    //Posição navio diagonal 2
+    if (linhaD2 + tamanhoNavio <= 10 && colunaD2 - (tamanhoNavio - 1) >= 0) { 
+        for (int i = 0; i < tamanhoNavio; i++) { 
+            if (tabuleiro[linhaD2 + i][colunaD2 - i] == 0) { 
+                tabuleiro[linhaD2 + i][colunaD2 - i] = navio;
+            }
+        }
+    }
+
+        printf("      Tabuleiro Batalha Naval\n");
         printf("  ");
         for (int j = 0; j < 10; j++) {
             printf(" %c ", coluna[j]); //Imprime as colunas de A a J
